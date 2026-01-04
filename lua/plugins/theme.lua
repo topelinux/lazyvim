@@ -1,1 +1,15 @@
-/home/tope/.config/omarchy/current/theme/neovim.lua
+return {
+  {
+    "sainnhe/sonokai",
+    init = myStartUp,
+    priority = 1000,
+    lazy = false,
+  },
+
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "sonokai",
+    },
+  },
+}
