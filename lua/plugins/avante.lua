@@ -6,7 +6,7 @@ return {
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
       -- add any opts here
-      provider = "deepseek",
+      provider = "aliyuncs",
       providers = {
         deepseek = {
           __inherited_from = "openai",
@@ -19,8 +19,8 @@ return {
           __inherited_from = "openai",
           api_key_name = "DASHSCOPE_API_KEY",
           endpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1",
-          model = "qwen-coder-plus-latest", -- your desired model (or use gpt-4o, etc.)
-          max_tokens = 8192,                -- Increase this to include reasoning tokens (for reasoning models)
+          model = "qwen3-coder-plus", -- your desired model (or use gpt-4o, etc.)
+          max_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
         },
       },
       enable_auto_complete = true,
@@ -28,8 +28,8 @@ return {
         submit = {
           normal = "<CR>",
           insert = "<leader>s",
-        }
+        },
       },
-    }
-  }
+    },
+  },
 }
