@@ -5,9 +5,12 @@
 local map = LazyVim.safe_keymap_set
 
 map("n", "<leader>2", '<cmd>let @+=expand("%:p")<cr>', { desc = "copy path" })
-map("n", "WQ", 'wq', { desc = "Fix WQ alias" })
-map("n", "Wq", 'wq', { desc = "Fix WQ alias" })
-map("n", "<leader>3", function() Snacks.picker.keymaps() end, { desc = "Keymaps by snask" })
+map("n", "WQ", "wq", { desc = "Fix WQ alias" })
+map("n", "Wq", "wq", { desc = "Fix WQ alias" })
+map("n", "<leader>3", function()
+  Snacks.picker.keymaps()
+end, { desc = "Keymaps by snask" })
+--map("n", "<space>y", '"*y', { desc = "copy to system" })
 --map("n", "<leader>ss", '<cmd>setlocal spell!<cr>', { desc = "set spell" })
 --vim.cmd([[
 --nnoremap <silent> <leader>k <cmd> Man<CR>
