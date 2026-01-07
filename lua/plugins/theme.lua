@@ -1,15 +1,14 @@
-return {
-  {
-    "sainnhe/sonokai",
-    init = myStartUp,
-    priority = 1000,
-    lazy = false,
-  },
+local theme = vim.fn.expand("~/.config/omarchy/current/theme/neovim.lua")
 
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "sonokai",
+if vim.fn.filereadable(theme) == 1 then
+  return dofile(theme)
+else
+  return {
+    {
+      "LazyVim/LazyVim",
+      opts = {
+        colorscheme = "sonokai",
+      },
     },
-  },
-}
+  }
+end

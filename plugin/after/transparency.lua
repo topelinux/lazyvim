@@ -1,9 +1,13 @@
 -- transparent background
---vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
---vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
---vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
---vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
---vim.api.nvim_set_hl(0, "Terminal", { bg = "none" })
+local uname = vim.loop.os_uname().sysname
+
+if uname ~= "Darwin" then
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+  vim.api.nvim_set_hl(0, "Pmenu", { bg = "none" })
+  vim.api.nvim_set_hl(0, "Terminal", { bg = "none" })
+end
 vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
 vim.api.nvim_set_hl(0, "FoldColumn", { bg = "none" })
 vim.api.nvim_set_hl(0, "Folded", { bg = "none" })
