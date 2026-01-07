@@ -12,9 +12,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- 复制到系统剪贴板
 
     -- 删除到无名寄存器
-    vim.keymap.set("n", "dd", '"dd', { silent = true })
+    vim.keymap.set("n", "dd", '""dd', { silent = true })
 
     -- 可选：其他删除操作也使用无名寄存器
-    vim.keymap.set({ "n", "v" }, "d", '"d', { silent = true })
+    vim.keymap.set({ "n", "v" }, "d", '""d', { silent = true })
+
+    vim.keymap.set("n", "p", '""p', { silent = true })
   end,
 })
