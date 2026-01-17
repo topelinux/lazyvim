@@ -10,6 +10,7 @@ map("n", "Wq", "wq", { desc = "Fix WQ alias" })
 map("n", "<leader>3", function()
   Snacks.picker.keymaps()
 end, { desc = "Keymaps by snask" })
+map("n", "<leader>fa", "<cmd>Neotree toggle left reveal_force_cwd=true<CR>", { desc = "reveal in tree" })
 --map("n", "<space>y", '"*y', { desc = "copy to system" })
 --map("n", "<leader>ss", '<cmd>setlocal spell!<cr>', { desc = "set spell" })
 --vim.cmd([[
