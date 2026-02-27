@@ -12,10 +12,11 @@ map("n", "<leader>3", function()
 end, { desc = "Keymaps by snask" })
 map("n", "<leader>fa", "<cmd>Neotree toggle left reveal_force_cwd=true<CR>", { desc = "reveal in tree" })
 map("n", "<leader>zh", ":edit ++enc=gb18030<CR>")
+map("n", "<leader>gr", function()
+  vim.lsp.buf.references()
+end, { desc = "lsp references" })
 
 map({ "n", "v" }, "<leader>y", '"*y', { desc = "copy to system" })
---map("v", "<leader>y", '"*y', { desc = "copy to system" })
---map("n", "<leader>y", '"+y', { desc = "copy to system" })
 --map("n", "<leader>ss", '<cmd>setlocal spell!<cr>', { desc = "set spell" })
 --vim.cmd([[
 --nnoremap <silent> <leader>k <cmd> Man<CR>
