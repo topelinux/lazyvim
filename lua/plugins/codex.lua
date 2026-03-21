@@ -1,17 +1,24 @@
 return {
-  "ishiooon/codex.nvim",
+  "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  init = function()
-    print("hi in codex setup")
-    require("codex").setup({
-      terminal_cmd = "/Users/jieyang/Library/pnpm/codex",
-    })
-  end,
+  config = true,
   keys = {
-    { "<leader>xc", "<cmd>Codex<cr>", desc = "Codex: Toggle" },
-    { "<leader>xf", "<cmd>CodexFocus<cr>", desc = "Codex: Focus" },
-    { "<leader>xs", "<cmd>CodexSend<cr>", mode = "v", desc = "Codex: Send selection" },
-    -- note: ftxfilter doesn’t work here (lazy.nvim keys doesn’t support it)
-    { "<leader>xa", "<cmd>CodexTreeAdd<cr>", desc = "Codex: Add file" },
+    { "<leader>a", nil, desc = "AI/Claude Code" },
+    { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+    { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+    { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+    { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+    { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+    { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+    { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+    {
+      "<leader>as",
+      "<cmd>ClaudeCodeTreeAdd<cr>",
+      desc = "Add file",
+      ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+    },
+    -- Diff management
+    { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+    { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
   },
 }
