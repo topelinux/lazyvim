@@ -17,6 +17,11 @@ map("n", "<leader>gr", function()
 end, { desc = "lsp references" })
 
 map({ "n", "v" }, "<leader>y", '"*y', { desc = "copy to system" })
+local modes = { "i", "x", "n", "s" }
+
+for _, mode in ipairs(modes) do
+  pcall(vim.keymap.del, mode, "<C-s>")
+end
 --map("n", "<leader>ss", '<cmd>setlocal spell!<cr>', { desc = "set spell" })
 --vim.cmd([[
 --nnoremap <silent> <leader>k <cmd> Man<CR>

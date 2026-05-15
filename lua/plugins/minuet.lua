@@ -3,16 +3,33 @@ return {
     "milanglacier/minuet-ai.nvim",
     config = function()
       require("minuet").setup({
-        provider = "openai_fim_compatible",
+        provider = "openai_compatible",
+        request_timeout = 5,
         provider_options = {
           openai_compatible = {
-            api_key = "DEEPSEEK_API_KEY",
-            base_url = "https://api.deepseek.com/v1", -- 关键
-            model = "deepseek-v4-flash",
+            api_key = "QWEN_XUAN_API_KEY",
+            end_point = "http://192.168.31.220:8080/v1/chat/completions",
+            --end_point = "https://coding.dashscope.aliyuncs.com/v1/chat/completions",
+            stream = true,
+            model = "qwen3-coder-next",
             optional = {
-              max_tokens = 256,
-              top_p = 0.9,
+              max_tokens = 255,
             },
+          },
+          --openai_compatible = {
+          --  api_key = "DEEPSEEK_API_KEY",
+          --  base_url = "https://api.deepseek.com/v1", -- 关键
+          --  model = "deepseek-v4-flash",
+          --  optional = {
+          --    max_tokens = 256,
+          --    top_p = 0.9,
+          --  },
+          --},
+          openai_fim_compatible = {
+            model = "mercury-coder",
+            end_point = "https://api.inceptionlabs.ai/v1/fim/completions",
+            api_key = "INCEPTION_API_KEY", -- environment variable name
+            stream = true,
           },
         },
       })
@@ -43,7 +60,7 @@ return {
         }
 
       -- 加入 minuet 到补全源
-      --table.insert(opts.sources.default, "minuet")
+      table.insert(opts.sources.default, "minuet")
 
       opts.sources.providers = opts.sources.providers or {}
       opts.sources.providers.minuet = {

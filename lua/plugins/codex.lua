@@ -1,24 +1,96 @@
 return {
-  "coder/claudecode.nvim",
-  dependencies = { "folke/snacks.nvim" },
-  config = true,
-  keys = {
-    { "<leader>a", nil, desc = "AI/Claude Code" },
-    { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-    { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-    { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-    { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-    { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-    { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-    { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-    {
-      "<leader>as",
-      "<cmd>ClaudeCodeTreeAdd<cr>",
-      desc = "Add file",
-      ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+  {
+    "olimorris/codecompanion.nvim",
+    cmd = {
+      "CodeCompanion",
+      "CodeCompanionChat",
+      "CodeCompanionActions",
+      "CodeCompanionCmd",
+      "CodeCompanionCLI",
     },
-    -- Diff management
-    { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-    { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      adapters = {
+        http = {
+          qwen = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              name = "qwen",
+              formatted_name = "Qwen",
+              env = {
+                url = "http://192.168.31.220:8080",
+                api_key = "QWEN_XUAN_API_KEY",
+                chat_url = "/v1/chat/completions",
+              },
+              headers = {
+                ["Content-Type"] = "application/json",
+                ["Authorization"] = "Bearer ${api_key}",
+              },
+              schema = {
+                model = {
+                  default = "qwen3-coder-next",
+                  choices = {
+                    "qwen3.6-plus",
+                    "qwen3-coder-next",
+                    "qwen3-coder-plus",
+                    "qwen3-coder-flash",
+                    "qwen-plus",
+                    "qwen-flash",
+                  },
+                },
+                temperature = {
+                  default = 0.2,
+                },
+              },
+            })
+          end,
+        },
+      },
+
+      interactions = {
+        chat = {
+          adapter = "qwen",
+          keymaps = {
+            send = {
+              modes = {
+                n = { "<CR>" },
+                i = "<M-R>",
+              },
+            },
+          },
+        },
+        inline = {
+          adapter = "qwen",
+        },
+        cmd = {
+          adapter = "qwen",
+        },
+      },
+
+      opts = {
+        language = "Chinese",
+      },
+    },
+
+    keys = {
+      {
+        "<leader>aa",
+        "<cmd>CodeCompanionActions<cr>",
+        desc = "CodeCompanion Actions",
+      },
+      {
+        "<leader>ac",
+        "<cmd>CodeCompanionChat Toggle<cr>",
+        desc = "CodeCompanion Chat",
+      },
+      {
+        "<leader>ai",
+        "<cmd>CodeCompanion<cr>",
+        mode = { "n", "v" },
+        desc = "CodeCompanion Inline",
+      },
+    },
   },
 }
