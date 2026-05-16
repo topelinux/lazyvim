@@ -8,4 +8,4 @@ vim.g.lazyvim_picker = "telescope"
 vim.opt.timeoutlen = 500
 vim.opt.conceallevel = 0
 vim.opt.concealcursor = ""
---vim.opt.clipboard = ""
+vim.opt.clipboard = ""

@@ -20,7 +20,7 @@ return {
               name = "qwen",
               formatted_name = "Qwen",
               env = {
-                url = "http://192.168.31.220:8080",
+                url = os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com",
                 api_key = "QWEN_XUAN_API_KEY",
                 chat_url = "/v1/chat/completions",
               },

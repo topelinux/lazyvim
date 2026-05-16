@@ -8,7 +8,9 @@ return {
         provider_options = {
           openai_compatible = {
             api_key = "QWEN_XUAN_API_KEY",
-            end_point = "http://192.168.31.220:8080/v1/chat/completions",
+            end_point = (os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com") .. "/v1/chat/completions",
+
+            --end_point = "http://192.168.31.220:8080/v1/chat/completions",
             --end_point = "https://coding.dashscope.aliyuncs.com/v1/chat/completions",
             stream = true,
             model = "qwen3-coder-next",

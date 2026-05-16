@@ -33,3 +33,5 @@ end
 --
 --map <leader>ss :setlocal spell!<cr>
 --]])
+
+--https://coding.dashscope.aliyuncs.com/v1/chat/completions
