@@ -1,3 +1,29 @@
+local function qwen_adapter(model)
+  return require("codecompanion.adapters").extend("openai_compatible", {
+    name = model,
+    --formatted_name = "Qwen",
+    formatted_name = "Qwen " .. model,
+
+    env = {
+      url = os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com",
+      api_key = "QWEN_XUAN_API_KEY",
+      chat_url = "/v1/chat/completions",
+    },
+    headers = {
+      ["Content-Type"] = "application/json",
+      ["Authorization"] = "Bearer ${api_key}",
+    },
+    schema = {
+      model = {
+        default = model,
+      },
+      temperature = {
+        default = 0.2,
+      },
+    },
+  })
+end
+
 return {
   {
     "olimorris/codecompanion.nvim",
@@ -15,43 +41,21 @@ return {
     opts = {
       adapters = {
         http = {
-          qwen = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              name = "qwen",
-              formatted_name = "Qwen",
-              env = {
-                url = os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com",
-                api_key = "QWEN_XUAN_API_KEY",
-                chat_url = "/v1/chat/completions",
-              },
-              headers = {
-                ["Content-Type"] = "application/json",
-                ["Authorization"] = "Bearer ${api_key}",
-              },
-              schema = {
-                model = {
-                  default = "qwen3-coder-next",
-                  choices = {
-                    "qwen3.6-plus",
-                    "qwen3-coder-next",
-                    "qwen3-coder-plus",
-                    "qwen3-coder-flash",
-                    "qwen-plus",
-                    "qwen-flash",
-                  },
-                },
-                temperature = {
-                  default = 0.2,
-                },
-              },
-            })
+          qwen_plus = function()
+            return qwen_adapter("qwen3.6-plus")
+          end,
+          qwen_coder = function()
+            return qwen_adapter("qwen3-coder-plus")
+          end,
+          qwen_flash = function()
+            return qwen_adapter("qwen3-coder-next")
           end,
         },
       },
 
       interactions = {
         chat = {
-          adapter = "qwen",
+          adapter = "qwen_flash",
           keymaps = {
             send = {
               modes = {
@@ -62,10 +66,10 @@ return {
           },
         },
         inline = {
-          adapter = "qwen",
+          adapter = "qwen_flash",
         },
         cmd = {
-          adapter = "qwen",
+          adapter = "qwen_plus",
         },
       },
 
