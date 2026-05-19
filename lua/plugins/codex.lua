@@ -69,9 +69,15 @@ return {
           agent = "codex",
           agents = {
             codex = {
-              cmd = "qwen",
+              cmd = "codex",
               args = {},
               description = "OpenAI Codex CLI",
+              provider = "terminal",
+            },
+            qwen = {
+              cmd = "qwen",
+              args = {},
+              description = "qwen CLI",
               provider = "terminal",
             },
           },
