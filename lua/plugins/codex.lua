@@ -65,6 +65,17 @@ return {
             },
           },
         },
+        cli = {
+          agent = "codex",
+          agents = {
+            codex = {
+              cmd = "qwen",
+              args = {},
+              description = "OpenAI Codex CLI",
+              provider = "terminal",
+            },
+          },
+        },
         inline = {
           adapter = "qwen_flash",
         },
