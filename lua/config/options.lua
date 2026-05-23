@@ -9,3 +9,4 @@ vim.opt.timeoutlen = 500
 vim.opt.conceallevel = 0
 vim.opt.concealcursor = ""
 vim.opt.clipboard = ""
+vim.g.root_spec = { { ".git", "Makefile", "compile_commands.json", "CMakeLists.txt" }, "lsp", "cwd" }
