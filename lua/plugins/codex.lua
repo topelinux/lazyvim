@@ -8,6 +8,7 @@ local function qwen_adapter(model)
       url = os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com",
       api_key = "QWEN_XUAN_API_KEY",
       chat_url = "/v1/chat/completions",
+      models_endpoint = "/v1/models",
     },
     headers = {
       ["Content-Type"] = "application/json",
@@ -16,6 +17,7 @@ local function qwen_adapter(model)
     schema = {
       model = {
         default = model,
+        choices = { model },
       },
       temperature = {
         default = 0.2,
@@ -42,13 +44,16 @@ return {
       adapters = {
         http = {
           qwen_plus = function()
-            return qwen_adapter("qwen3.6-plus")
+            return qwen_adapter("qwen3.7-plus")
           end,
           qwen_coder = function()
             return qwen_adapter("qwen3-coder-plus")
           end,
           qwen_flash = function()
             return qwen_adapter("qwen3-coder-next")
+          end,
+          xuan_deepseek_pro = function()
+            return qwen_adapter("deepseek-v4-pro")
           end,
         },
       },
