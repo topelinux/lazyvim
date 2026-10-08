@@ -2,28 +2,19 @@ return {
   {
     "milanglacier/minuet-ai.nvim",
     config = function()
-      local function has_tailscale()
-        local handle = io.popen("ps aux 2>/dev/null | grep -qi '[T]ailscale' && echo 'ok'")
-        if handle then
-          local result = handle:read("*a"):gsub("%s+", "")
-          handle:close()
-          return result == "ok"
-        end
-        return false
-      end
-
-      local deepseek_enabled = has_tailscale()
-      local base_url = deepseek_enabled and (os.getenv("DEEPSEEK_BASE_URL") or "http://192.168.31.220:8080")
-        or (os.getenv("QWEN_BASE_URL") or "https://coding.dashscope.aliyuncs.com")
-
-      base_url = base_url .. "/v1/chat/completions"
-      local model = deepseek_enabled and (os.getenv("DEEPSEEK_MODEL") or "deepseek-v4-flash")
-        or (os.getenv("QWEN_MODEL") or "qwen3-coder-next") -- 用 qwen-plus 更通用；你原设 qwen3-coder-next 也 OK
-      local api_key = deepseek_enabled and "XUAN_DEEPSKEEY_KEY" or "QWEN_XUAN_API_KEY"
+      local base_url = (os.getenv("AIGATE_BASE_URL") or "https://opencode.ai/zen/go") .. "/v1/chat/completions"
+      local model = os.getenv("AIGATE_MODEL") or "deepseek-v4.1-flash"
+      local session_id = "nvim-" .. os.time() .. "-" .. math.random(100000, 999999)
       --print("minuet: " .. model)
       require("minuet").setup({
         provider = "openai_compatible",
         request_timeout = 5,
+        curl_extra_args = {
+          "-H",
+          "x-opencode-session: " .. session_id,
+          "-H",
+          "x-opencode-project: lazyvim",
+        },
         provider_options = {
           codestral = {
             api_key = function()
@@ -31,10 +22,10 @@ return {
             end,
           },
           openai_compatible = {
-            api_key = api_key,
+            api_key = function()
+              return os.getenv("OPENCODE_API_KEY")
+            end,
             end_point = base_url,
-            --end_point = (os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com") .. "/v1/chat/completions",
-            --end_point = "https://coding.dashscope.aliyuncs.com/v1/chat/completions",
             stream = true,
             model = model,
             optional = {

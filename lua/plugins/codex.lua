@@ -1,18 +1,22 @@
+local session_id = "nvim-" .. os.time() .. "-" .. math.random(100000, 999999)
+
 local function qwen_adapter(model)
   return require("codecompanion.adapters").extend("openai_compatible", {
     name = model,
     --formatted_name = "Qwen",
-    formatted_name = "Qwen " .. model,
+    formatted_name = "OpenCode " .. model,
 
     env = {
-      url = os.getenv("QWEN_URL") or "https://coding.dashscope.aliyuncs.com",
-      api_key = "QWEN_XUAN_API_KEY",
+      url = os.getenv("AIGATE_BASE_URL") or "https://opencode.ai/zen/go",
+      api_key = "OPENCODE_API_KEY",
       chat_url = "/v1/chat/completions",
       models_endpoint = "/v1/models",
     },
     headers = {
       ["Content-Type"] = "application/json",
       ["Authorization"] = "Bearer ${api_key}",
+      ["x-opencode-session"] = session_id,
+      ["x-opencode-project"] = "lazyvim",
     },
     schema = {
       model = {
@@ -43,24 +47,15 @@ return {
     opts = {
       adapters = {
         http = {
-          qwen_plus = function()
-            return qwen_adapter("qwen3.7-plus")
-          end,
-          qwen_coder = function()
-            return qwen_adapter("qwen3-coder-plus")
-          end,
-          qwen_flash = function()
-            return qwen_adapter("qwen3-coder-next")
-          end,
-          xuan_deepseek_pro = function()
-            return qwen_adapter("deepseek-v4-pro")
+          deepseek_flash = function()
+            return qwen_adapter("deepseek-v4.1-flash")
           end,
         },
       },
 
       interactions = {
         chat = {
-          adapter = "qwen_flash",
+          adapter = "deepseek_flash",
           keymaps = {
             send = {
               modes = {
@@ -88,10 +83,10 @@ return {
           },
         },
         inline = {
-          adapter = "qwen_flash",
+          adapter = "deepseek_flash",
         },
         cmd = {
-          adapter = "qwen_plus",
+          adapter = "deepseek_flash",
         },
       },
 
